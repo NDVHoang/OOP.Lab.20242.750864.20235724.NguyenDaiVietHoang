@@ -1,0 +1,36 @@
+1. If you create a constructor method to build a DVD by title then create a constructor method to build
+a DVD by category. Does JAVA allow you to do this?
+Trong Java, nếu bạn tạo một constructor để khởi tạo đối tượng DVD bằng tiêu đề (title), và sau đó tạo thêm một constructor khác để khởi tạo đối tượng chỉ bằng thể loại (category), thì chương trình sẽ không thể biên dịch được. Lý do là cả hai constructor đều có cùng chữ ký (signature), tức là cùng nhận một tham số kiểu String. Ví dụ:
+
+public DigitalVideoDisc(String title) { ... }
+public DigitalVideoDisc(String category) { ... }
+
+Java không phân biệt constructor dựa trên tên tham số, mà chỉ dựa trên số lượng và kiểu của tham số. Vì vậy, việc có hai constructor cùng kiểu String sẽ gây ra lỗi "duplicate constructor". Đây là giới hạn của cơ chế nạp chồng phương thức (method/constructor overloading) trong Java.
+
+2. Is JAVA a Pass by Value or a Pass by Reference programming language?
+Java là một ngôn ngữ truyền tham trị (pass by value). Điều này nghĩa là khi một biến được truyền vào phương thức, Java sẽ truyền một bản sao của giá trị đó. Trong trường hợp của kiểu dữ liệu đối tượng, bản sao được truyền chính là tham chiếu đến đối tượng, chứ không phải đối tượng thực sự. Do đó, Java không truyền tham chiếu (pass by reference) như một số ngôn ngữ khác.
+3. After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+Hàm swap() được định nghĩa như sau:
+
+public static void swap(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+    DigitalVideoDisc temp = dvd1;
+    dvd1 = dvd2;
+    dvd2 = temp;
+}
+
+Khi gọi swap(jungleDVD, cinderellaDVD), các đối tượng dvd1 và dvd2 trong hàm là bản sao của các tham chiếu ban đầu trong main(). Việc hoán đổi dvd1 và dvd2 chỉ có tác dụng trong phạm vi hàm swap(). Sau khi phương thức kết thúc, các thay đổi không ảnh hưởng đến jungleDVD và cinderellaDVD trong main(). Kết quả là tiêu đề của hai đối tượng vẫn giữ nguyên.
+4. After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+Phương thức changeTitle() có thể được định nghĩa như sau:
+
+public static void changeTitle(DigitalVideoDisc dvd, String title) {
+    String oldTitle = dvd.getTitle();
+    dvd.setTitle(title);
+    dvd = new DigitalVideoDisc(oldTitle);
+}
+
+Khi gọi phương thức này:
+- dvd là một bản sao của tham chiếu jungleDVD, nhưng vẫn trỏ đến cùng một đối tượng trong bộ nhớ.
+- Khi gọi dvd.setTitle(title);, bạn thực sự đang thay đổi nội dung của đối tượng mà jungleDVD đang tham chiếu đến → tiêu đề bị thay đổi.
+- Sau đó, dòng dvd = new DigitalVideoDisc(oldTitle); tạo một đối tượng mới và gán cho biến dvd, nhưng điều này chỉ ảnh hưởng đến bản sao trong phương thức changeTitle(), không thay đổi tham chiếu thực sự của jungleDVD trong main().
+
+Vì vậy, việc đổi tiêu đề vẫn có hiệu lực, còn việc tạo đối tượng mới không ảnh hưởng đến biến gốc.

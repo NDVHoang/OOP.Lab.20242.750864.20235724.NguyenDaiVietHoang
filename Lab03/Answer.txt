@@ -1,0 +1,19 @@
+
+1. Question: Write a `toString()` method for the `DigitalVideoDisc` class. What should be the return type of this method? 
+Answer: The `toString()` method should return a value of type `String`, as it's meant to provide a human-readable description of the `DigitalVideoDisc` object.
+
+2. Question: Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts?  
+Answer: The `Media` class acts as an aggregate that includes or interacts with both the `Cart` and `Store` classes. We can verify this by examining their constructors to ensure that they properly initialize their internal components.
+
+3. Question: What class should implement the `Comparable` interface? 
+Answer: Any class whose objects need to be sorted based on a natural order should implement the `Comparable` interface.
+
+4. Question: In those classes, how should you implement the `compareTo()` method to reflect the ordering that we want?  
+Answer: The `compareTo()` method should define a clear and consistent way to compare objects: return a negative value if the current object is less than the other, zero if they’re equal, and a positive value if it’s greater.
+
+5. Question: Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this `Comparable` interface approach? 
+Answer: No, the `Comparable` interface supports only one natural ordering using the `compareTo()` method. To have multiple sorting criteria, such as by title then cost or by cost then title, we need to use different `Comparator` implementations.
+
+6. Question: Suppose the DVDs have a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this? 
+Answer: In this case, you can override the `compareTo()` method specifically within the `DigitalVideoDisc` class to implement a custom comparison logic that sorts by title, then by length in descending order, and finally by cost.
+

@@ -1,0 +1,58 @@
+1.3 Comparing AWT and Swing
+
+ a.Top-Level Containers
+
+AWT and Swing both offer containers to hold UI components, but they differ in design and flexibility:
+
+| Feature              | AWT      | Swing     |
+| -------------------- | -------- | --------- |
+| Main Window          |  Frame   |  JFrame   |
+| Dialogs              |  Dialog  |  JDialog  |
+| Windowless Container |  Panel   |  JPanel   |
+
+Swing containers are lightweight, built in pure Java, and support advanced features like root panes and pluggable look & feel.
+AWT containers are heavyweight, relying on native OS components.
+
+ b. Basic Components
+
+| Component  | AWT               | Swing                        |
+| ---------- | ----------------- | ---------------------------- |
+| Label      |  Label            |  JLabel                      |
+| Button     |  Button           |  JButton                     |
+| Text Field |  TextField        |  JTextField                  |
+| Text Area  |  TextArea         |  JTextArea                   |
+| Menu       |  Menu ,  MenuBar  |  JMenu ,  JMenuBar           |
+| Container  |  Panel ,  Frame   |  JPanel ,  JFrame ,  JLabel  |
+
+Swing extends AWT with more versatile, Java-based components prefixed with `J`.
+
+c. Event Handling
+
+| Aspect      | AWT                          | Swing                                                |
+| ----------- | ---------------------------- | ---------------------------------------------------- |
+| Event Model | Old delegation model         | Same model, enhanced capabilities                    |
+| Listeners   | Yes (e.g., `ActionListener`) | Same                                                 |
+| Threading   | No specific UI thread model  | Requires updates via the EDT (Event Dispatch Thread) |
+
+Swing enforces thread safety using the **Event Dispatch Thread**, while **AWT** is more lenient.
+
+d. Look & Feel
+
+AWT uses the system's native UI, limiting customization.
+Swing supports a pluggable look & feel, enabling consistent and theme-able cross-platform interfaces.
+
+---
+
+Handling Playable Media Items in the UI
+
+In the media store application, not all items can be played. To manage this:
+
+We use a Playable interface, implemented only by media types that support playback, such as DVDs and CDs.
+When displaying media, we use instanceof to check if an item supports Playable.
+
+  * If it does, we add a **"Play" button**.
+  * If not (e.g., **Books**), no play option is shown.
+* This avoids runtime errors and ensures that only valid media can be played.
+* On click, we safely cast the media to `Playable` and call its `play()` method.
+
+This approach demonstrates good **object-oriented design**, ensuring the interface is **safe**, **flexible**, and user-friendly.

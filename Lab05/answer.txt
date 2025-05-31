@@ -1,0 +1,8 @@
+The Aims class must be updated to handle any exceptions generated when the play() methods
+are called. What happens when you don’t update for them to catch?
+
+PlayerException là một checked exception (vì nó kế thừa từ java.lang.Exception), nghĩa là trình biên dịch Java bắt buộc bạn phải xử lý nó một cách rõ ràng. Nếu bạn gọi phương thức play() mà không bắt ngoại lệ bằng try-catch hoặc không khai báo throws trong phần khai báo phương thức, thì xin chia buồn: code sẽ không thể biên dịch được. Trình biên dịch sẽ báo lỗi và yêu cầu bạn phải xử lý PlayerException đúng cách.
+
+Trong trường hợp PlayerException là một unchecked exception (ví dụ như kế thừa từ RuntimeException), thì trình biên dịch không bắt buộc bạn phải xử lý. Code vẫn biên dịch và chạy bình thường. Tuy nhiên, nếu lỗi xảy ra lúc chạy chương trình mà bạn không có khối try-catch để bắt lỗi, thì chương trình sẽ bị dừng đột ngột và in ra một đoạn stack trace dài ngoằng, khiến bạn phải ngồi suy nghĩ lại cách xử lý.
+
+Tóm lại: vì PlayerException là checked exception, nên bạn bắt buộc phải xử lý nó tại nơi gọi play(). Không xử lý = không biên dịch = không chạy được.
